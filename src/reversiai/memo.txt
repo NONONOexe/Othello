@@ -1,0 +1,416 @@
+boardState
+------------------------------------------------------------------------------------------------
+// 角の対角上にある自分の石の個数
+	public int getCornerAround1() {
+		int corner1 = 0;
+		// 4箇所
+		SetPoint cornerPos1[] = { new SetPoint(2, 2), new SetPoint(2, 7),
+				new SetPoint(7, 2), new SetPoint(7, 7) };
+		for (int i = 0; i < cornerPos1.length; i++) {
+			// 自分の石があったら
+			if (getColor(cornerPos1[i]) == getCurrentColor()) {
+				corner1++;
+			}
+		}
+		return corner1;
+	}
+
+	// 角の両となりにある自分の石の個数
+	public int getCornerAround2() {
+		int corner2 = 0;
+		// 8箇所
+		SetPoint cornerPos2[] = { new SetPoint(1, 2), new SetPoint(2, 1),
+				new SetPoint(1, 7), new SetPoint(7, 1), new SetPoint(2, 8),
+				new SetPoint(8, 2), new SetPoint(7, 8), new SetPoint(8, 7) };
+		for (int i = 0; i < cornerPos2.length; i++) {
+			// 自分の石があったら
+			if (getColor(cornerPos2[i]) == getCurrentColor()) {
+				corner2++;
+			}
+		}
+		return corner2;
+	}
+
+	// 角
+	public int getCorner() {
+		int corner = 0;
+		SetPoint cornerPos[] = { new SetPoint(1, 1), new SetPoint(1, 8),
+				new SetPoint(8, 1), new SetPoint(8, 8) };
+		for (int i = 0; i < cornerPos.length; i++) {
+			// 自分の石があったら
+			if (getColor(cornerPos[i]) == -1 * getCurrentColor()) {
+				corner++;
+			}
+		}
+		return corner;
+	}
+
+	// 山 ○●●●●●●○
+	public int getMtAi() {
+		int hen = 0;
+		int Mt[] = { 0, 1, 1, 1, 1, 1, 1, 0 };
+
+		SetPoint cornerPosMt[][] = {
+				{ new SetPoint(1, 1), new SetPoint(1, 2), new SetPoint(1, 3),
+						new SetPoint(1, 4), new SetPoint(1, 5),
+						new SetPoint(1, 6), new SetPoint(1, 7),
+						new SetPoint(1, 8) },
+				{ new SetPoint(1, 1), new SetPoint(2, 1), new SetPoint(3, 1),
+						new SetPoint(4, 1), new SetPoint(5, 1),
+						new SetPoint(6, 1), new SetPoint(7, 1),
+						new SetPoint(8, 1) },
+				{ new SetPoint(8, 1), new SetPoint(8, 2), new SetPoint(8, 3),
+						new SetPoint(8, 4), new SetPoint(8, 5),
+						new SetPoint(8, 6), new SetPoint(8, 7),
+						new SetPoint(8, 8) },
+				{ new SetPoint(1, 8), new SetPoint(2, 8), new SetPoint(3, 8),
+						new SetPoint(4, 8), new SetPoint(5, 8),
+						new SetPoint(6, 8), new SetPoint(7, 8),
+						new SetPoint(8, 8) } };
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (getColor(cornerPosMt[i][j]) == Mt[j] * getCurrentColor()) {
+					if (j == 7) {
+						hen++;
+					}
+				} else {
+					break;
+				}
+			}
+		}
+		return hen;
+	}
+
+	// 山 ○●●●●●●○
+	public int getMtHu() {
+		int hen = 0;
+		int Mt[] = { 0, -1, -1, -1, -1, -1, -1, 0 };
+
+		SetPoint cornerPosMt[][] = {
+				{ new SetPoint(1, 1), new SetPoint(1, 2), new SetPoint(1, 3),
+						new SetPoint(1, 4), new SetPoint(1, 5),
+						new SetPoint(1, 6), new SetPoint(1, 7),
+						new SetPoint(1, 8) },
+				{ new SetPoint(1, 1), new SetPoint(2, 1), new SetPoint(3, 1),
+						new SetPoint(4, 1), new SetPoint(5, 1),
+						new SetPoint(6, 1), new SetPoint(7, 1),
+						new SetPoint(8, 1) },
+				{ new SetPoint(8, 1), new SetPoint(8, 2), new SetPoint(8, 3),
+						new SetPoint(8, 4), new SetPoint(8, 5),
+						new SetPoint(8, 6), new SetPoint(8, 7),
+						new SetPoint(8, 8) },
+				{ new SetPoint(1, 8), new SetPoint(2, 8), new SetPoint(3, 8),
+						new SetPoint(4, 8), new SetPoint(5, 8),
+						new SetPoint(6, 8), new SetPoint(7, 8),
+						new SetPoint(8, 8) } };
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (getColor(cornerPosMt[i][j]) == Mt[j] * getCurrentColor()) {
+					if (j == 7) {
+						hen++;
+					}
+				} else {
+					break;
+				}
+			}
+		}
+		return hen;
+	}
+
+	// ブロック　 ○○●●●●○○
+	public int getBr() {
+		int hen = 0;
+		int Br[] = { 0, 0, 1, 1, 1, 1, 0, 0 };
+
+		SetPoint cornerPosMt[][] = {
+				{ new SetPoint(1, 1), new SetPoint(1, 2), new SetPoint(1, 3),
+						new SetPoint(1, 4), new SetPoint(1, 5),
+						new SetPoint(1, 6), new SetPoint(1, 7),
+						new SetPoint(1, 8) },
+				{ new SetPoint(1, 1), new SetPoint(2, 1), new SetPoint(3, 1),
+						new SetPoint(4, 1), new SetPoint(5, 1),
+						new SetPoint(6, 1), new SetPoint(7, 1),
+						new SetPoint(8, 1) },
+				{ new SetPoint(8, 1), new SetPoint(8, 2), new SetPoint(8, 3),
+						new SetPoint(8, 4), new SetPoint(8, 5),
+						new SetPoint(8, 6), new SetPoint(8, 7),
+						new SetPoint(8, 8) },
+				{ new SetPoint(1, 8), new SetPoint(2, 8), new SetPoint(3, 8),
+						new SetPoint(4, 8), new SetPoint(5, 8),
+						new SetPoint(6, 8), new SetPoint(7, 8),
+						new SetPoint(8, 8) } };
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (getColor(cornerPosMt[i][j]) == Br[j] * getCurrentColor()) {
+					if (j == 7) {
+						hen++;
+					}
+				} else {
+					break;
+				}
+			}
+		}
+		return hen;
+	}
+
+	// ウイング　○○●●●●●○ or ○●●●●●○○
+	public int getWi() {
+		int hen = 0;
+		int Wi1[] = { 0, 1, 1, 1, 1, 1, 0, 0 };
+		int Wi2[] = { 0, 0, 1, 1, 1, 1, 1, 0 };
+		SetPoint cornerPosMt[][] = {
+				{ new SetPoint(1, 1), new SetPoint(1, 2), new SetPoint(1, 3),
+						new SetPoint(1, 4), new SetPoint(1, 5),
+						new SetPoint(1, 6), new SetPoint(1, 7),
+						new SetPoint(1, 8) },
+				{ new SetPoint(1, 1), new SetPoint(2, 1), new SetPoint(3, 1),
+						new SetPoint(4, 1), new SetPoint(5, 1),
+						new SetPoint(6, 1), new SetPoint(7, 1),
+						new SetPoint(8, 1) },
+				{ new SetPoint(8, 1), new SetPoint(8, 2), new SetPoint(8, 3),
+						new SetPoint(8, 4), new SetPoint(8, 5),
+						new SetPoint(8, 6), new SetPoint(8, 7),
+						new SetPoint(8, 8) },
+				{ new SetPoint(1, 8), new SetPoint(2, 8), new SetPoint(3, 8),
+						new SetPoint(4, 8), new SetPoint(5, 8),
+						new SetPoint(6, 8), new SetPoint(7, 8),
+						new SetPoint(8, 8) } };
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (getColor(cornerPosMt[i][j]) == Wi1[j] * getCurrentColor()) {
+					if (j == 7) {
+						hen++;
+					}
+				} else {
+					break;
+				}
+			}
+		}
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (getColor(cornerPosMt[i][j]) == Wi2[j] * getCurrentColor()) {
+					if (j == 7) {
+						hen++;
+					}
+				} else {
+					break;
+				}
+			}
+		}
+		return hen;
+	}
+
+---------------------------------------------------------------------------------------
+
+
+
+
+
+
+AIminimax
+--------------------------------------------------------------------------------
+import java.util.ArrayList;
+
+import boardsystem.BoardState;
+import boardsystem.SetPoint;
+
+public class AIminimax {
+	SetPoint aiMiniMaxPoint;
+	int alpha=-5000;
+	int beta=5000;
+
+	public AIminimax(BoardState board, int limit) {
+		int eval;// 評価値
+		int eval_max = -5000;// 最大評価値(最小を-100としている)
+
+		board.makeMovablePosAI();// 打てる場所を数え上げ
+		ArrayList<SetPoint> pos = board.getMovablePosAI();
+
+		for (int i = 0; i < pos.size(); i++) {
+			if (!board.move(pos.get(i))) {
+				System.err.println("\nAIMiniMax:異常検出");
+				System.err.println("強制終了します");
+				System.exit(0);
+			}
+			eval = yourturn(board, limit - 1,alpha,beta);// 評価値を取得
+			board.undo();
+			board.makeMovablePosAI();// 打てる場所を数え上げ
+			
+			// 最大評価値の更新
+			if (eval > eval_max) {
+				aiMiniMaxPoint = pos.get(i);
+				eval_max = eval;
+			}
+		}
+	}
+
+	// AIのターン
+	private int myturn(BoardState board, int limit,int alpha,int beta) {
+		// ゲーム終了か深さが指定した値に達したら、評価値を測る
+		if (board.isGameOver() || limit == 0) {
+			if (BoardState.MAX_TURNS - board.getTurns() <= 12) {
+				// 終了5ターン以内なら、完全読み
+				if (BoardState.MAX_TURNS - board.getTurns() <= 1) {
+					Value myvalue = new Perfect();
+					int m = myvalue.valueMain(board);
+					return m;
+				} else {
+					// 10ターン以内なら必勝読み
+					Value myvalue = new Victory();
+					int m = myvalue.valueMain(board);
+					return m;
+				}
+			} else {
+				// それ以外はMovablePosを基準に測る
+				Value myvalue = new Eval();
+				int m = myvalue.valueMain(board);
+				return m;
+			}
+		}
+
+		// 探索
+		board.makeMovablePosAI();// 打てる場所を数え上げ
+		ArrayList<SetPoint> pos = board.getMovablePosAI();
+		int score;
+		int score_max = -5000;
+
+		if (pos.size() != 0) {
+			for (int i = 0; i < pos.size(); i++) {
+				board.move(pos.get(i));
+				score = yourturn(board, limit - 1,alpha,beta);
+				board.undo();
+				board.makeMovablePosAI();// 打てる場所を数え上げ
+				
+				//betaより大きい評価だったら
+				if(score>=beta){
+					return score;
+				}
+				
+				// 最大スコア更新
+				if (score > score_max) {
+					score_max = score;
+					alpha=Math.max(alpha,score_max);//大きいほうをalpha値とする
+				}
+	
+			}
+		} else {
+			board.pass();
+			score = yourturn(board, limit,alpha,beta);
+			board.undo();
+			board.makeMovablePosAI();// 打てる場所を数え上げ
+		}
+
+		return score_max;
+	}
+
+	// 人間プレイヤーのターン
+	private int yourturn(BoardState board, int limit,int alpha,int beta) {
+		// ゲーム終了か深さが指定した値に達したら、評価値を測る
+		if (board.isGameOver() || limit == 0) {
+			if (BoardState.MAX_TURNS - board.getTurns() <= 12) {
+				// 終了5ターン以内なら、完全読み
+				if (BoardState.MAX_TURNS - board.getTurns() <= 1) {
+					Value yourvalue = new Perfect();
+					int y = yourvalue.valueMain(board);
+					return y;
+				} else {
+					// 10ターン以内なら必勝読み
+					Value yourvalue = new Victory();
+					int y = yourvalue.valueMain(board);
+					return y;
+				}
+			} else {
+				// それ以外はMovablePosを基準に測る
+				Value yourvalue = new Eval();
+				int y = yourvalue.valueMain(board);
+				return y;
+			}
+		}
+
+		// 探索
+		board.makeMovablePosAI();// 打てる場所を数え上げ
+		ArrayList<SetPoint> pos = board.getMovablePosAI();
+		int score;
+		int score_min = 5000;
+
+		if (pos.size() != 0) {
+			for (int i = 0; i < pos.size(); i++) {
+				board.move(pos.get(i));
+				score = myturn(board, limit - 1,alpha,beta);
+				board.undo();
+				board.makeMovablePosAI();// 打てる場所を数え上げ
+				
+				//alphaより大きい評価だったら
+				if(score<=alpha){
+					return score;
+				}
+				
+				// 最小スコア更新
+				if (score < score_min) {
+					score_min = score;
+					beta=Math.min(beta, score_min);//小さいほうをbeta値とする
+				}
+			}
+		} else {
+			board.pass();
+			score = myturn(board, limit,alpha,beta);
+			board.undo();
+			board.makeMovablePosAI();// 打てる場所を数え上げ
+		}
+
+		return score_min;
+	}
+
+	// AIの置く座標を返す
+	public String getPoint() {
+		// 入力座標、英字+数字に変換,表示
+		if (aiMiniMaxPoint != null) {
+			String p = aiMiniMaxPoint.toString();
+			return p;
+		} else {
+			// nullpointerを返す
+			return null;
+		}
+	}
+}
+---------------------------------------------------------------------------------------
+
+
+
+
+
+
+Eval
+------------------------------------------
+import java.util.ArrayList;
+
+import boardsystem.BoardState;
+import boardsystem.SetPoint;
+
+public class Eval implements Value {
+
+	@Override
+	public int valueMain(BoardState board) {
+		ArrayList<SetPoint> pos = board.getMovablePosAI();
+		// 着手可能
+		int eval = 60 * pos.size();
+		// 100*board.getCornerAround1()の個数
+		eval = eval - (530 * board.getCornerAround1());
+		// 50*board.getCornerAround2()の個数
+		eval = eval - (400 * board.getCornerAround2());
+		// 150*board.getCorner()の個数
+		// eval = eval -(350 * board.getCorner());
+		// 自分の 山 ○●●●●●●○
+		eval = eval + (250 * board.getMtAi());
+		// 相手の山 ○●●●●●●○
+		eval = eval - (100 * board.getMtHu());
+		// ブロック　 ○○●●●●○○
+		eval = eval + (250 * board.getBr());
+		// ウイング　○○●●●●●○ or ○●●●●●○○
+		eval = eval - (200 * board.getBr());
+		return eval;
+	}
+
+}
+-------------------------------------------------------------------------
+
